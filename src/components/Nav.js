@@ -16,17 +16,19 @@ import { Link } from 'react-router';
 		}
 		render() {
 			return (
-				<Navbar>
+				<Navbar inverse fluid>
 					<Navbar.Header>
 						<Navbar.Brand>
-							<a href="#">Game</a>
+							<a href="/">Game</a>
 						</Navbar.Brand>
 					</Navbar.Header>
-					<Nav>
+					<Nav pullRight>
 					{this.renderLinks()}
-						<NavItem eventKey={1} href="#">Link</NavItem>
-						<NavItem eventKey={2} href="#">Link</NavItem>
+						<NavItem eventKey={3} href="/game">Game</NavItem>
+						<NavItem eventKey={4} href="#">Leaderboards</NavItem>
+						<NavItem eventKey={5} href="#">Your Profile</NavItem>
 					</Nav>
+
 				</Navbar>
 			);
 		}

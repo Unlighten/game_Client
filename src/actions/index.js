@@ -3,19 +3,19 @@ import {browserHistory} from 'react-router';
 import {AUTH_USER, UNAUTH_USER, AUTH_ERROR} from './types';
 import authReducer from '../reducers/auth_reducer';
 
-const ROOT_URL = "localhost://3000"
+const ROOT_URL = "http://localhost:7272"
 const config = {
   headers: {authorization: localStorage.getItem('token') }
 }
 
-export function signinUser({email, password}){
+export function signinUser({username, password}){
   return function(dispatch){
-    axios.post(`${ROOT_URL}/signin`, {email, password})
+    axios.post(`${ROOT_URL}/signin`, {username, password})
     .then(response => {
       dispatch({type: AUTH_USER});
       config.headers.authorization = response.data.token;
       localStorage.setItem('token', config.headers.authorization);
-      browserHistory.push('/items');
+      browserHistory.push('/game');
     })
     .catch(response => dispatch(authError("No Bueno Login Info")));
   }
@@ -28,14 +28,14 @@ export function authError(error) {
   };
 }
 
-export function signupUser({email, password}){
+export function signupUser({username, password}){
   return function(dispatch){
-    axios.post(`${ROOT_URL}/signup`, {email, password})
+    axios.post(`${ROOT_URL}/signup`, {username, password})
     .then(response => {
       dispatch({type: AUTH_USER});
       config.headers.authorization = response.data.token;
       localStorage.setItem('token', config.headers.authorization);
-      browserHistory.push('/newitem');
+      browserHistory.push('/game');
     })
     .catch(response => dispatch(authError(response.data.error)));
   }
