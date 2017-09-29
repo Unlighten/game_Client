@@ -7,14 +7,16 @@ export default function(ComposedComponent) {
       router: React.PropTypes.object
     }
 
+    // nextProps.authenticated please help****************************************
     componentWillMount() {
-      if (!this.props.authenticated) {
+      if (!window.localStorage.getItem('token')) {
         this.context.router.push('/');
       }
     }
 
-    comonentWillUpdate(nextProps) {
-      if (!nextProps.authenticated) {
+    // nextProps.authenticated please help****************************************
+    componentWillUpdate(nextProps) {
+      if (!window.localStorage.getItem('token')) {
         this.context.router.push('/');
       }
     }

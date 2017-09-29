@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {footer} from 'react-bootstrap';
+import {footer, Well} from 'react-bootstrap';
 import { connect } from 'react-redux';
 import { Link } from 'react-router';
 
@@ -7,8 +7,7 @@ import { Link } from 'react-router';
 
 		render() {
 			return (
-				<footer>
-				</footer>
+				<footer className="actual-footer" bsSize="large"></footer>
 			);
 		}
 	}

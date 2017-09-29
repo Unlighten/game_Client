@@ -7,7 +7,7 @@ class Signout extends Component {
 		this.props.signoutUser();
 	}
 	render() {
-		return <div>Bye :(</div>
+		return <div></div>
 	}
 }
 

@@ -5,7 +5,9 @@ import { Link } from 'react-router';
 
 	class NavBarHeader extends Component {
 		renderLinks(){
-			if(this.props.authenticated) {
+			//Another thing that may be broken... sort of.. 
+			// if(this.props.authenticated) {
+				if(window.localStorage.getItem('token')){
 				return <NavItem key={1} href="/signout">Sign Out</NavItem>
 			} else {
 				return [

@@ -27,9 +27,9 @@ ReactDOM.render(
           <Route path="signin" component={Signin} />
           <Route path="signout" component={Signout} />
           <Route path="signup" component={Signup} />
-          <Route path="game" component={Game} />
-          <Route path="profile" component={Profile} />
-          <Route path="leaderboards" component={Leaderboards} />
+          <Route path="game" component={RequireAuth(Game)} />
+          <Route path="profile" component={RequireAuth(Profile)} />
+          <Route path="leaderboards" component={RequireAuth(Leaderboards)} />
         </Route>
       </Router>
     </Provider>

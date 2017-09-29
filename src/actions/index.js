@@ -6,6 +6,7 @@ import authReducer from '../reducers/auth_reducer';
 const ROOT_URL = "http://localhost:7272"
 const config = {
   headers: {authorization: localStorage.getItem('token') }
+  // headers: {authorization: null }
 }
 
 export function signinUser({username, password}){
@@ -13,6 +14,7 @@ export function signinUser({username, password}){
     axios.post(`${ROOT_URL}/signin`, {username, password})
     .then(response => {
       dispatch({type: AUTH_USER});
+      console.log(response.data);
       config.headers.authorization = response.data.token;
       localStorage.setItem('token', config.headers.authorization);
       browserHistory.push('/homepage');
