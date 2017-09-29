@@ -6,7 +6,7 @@ import { Link } from 'react-router';
 	class NavBarHeader extends Component {
 		renderLinks(){
 			if(this.props.authenticated) {
-				return <NavItem href="/signout">Sign Out</NavItem>
+				return <NavItem key={1} href="/signout">Sign Out</NavItem>
 			} else {
 				return [
 					<NavItem key={1} href="/signin">Sign In</NavItem>,
@@ -19,14 +19,14 @@ import { Link } from 'react-router';
 				<Navbar inverse fluid>
 					<Navbar.Header>
 						<Navbar.Brand>
-							<a href="/">Game</a>
+							<a href="/homepage">Game</a>
 						</Navbar.Brand>
 					</Navbar.Header>
 					<Nav pullRight>
 					{this.renderLinks()}
 						<NavItem eventKey={3} href="/game">Game</NavItem>
-						<NavItem eventKey={4} href="#">Leaderboards</NavItem>
-						<NavItem eventKey={5} href="#">Your Profile</NavItem>
+						<NavItem eventKey={4} href="/leaderboards">Leaderboards</NavItem>
+						<NavItem eventKey={5} href="/profile">Your Profile</NavItem>
 					</Nav>
 
 				</Navbar>

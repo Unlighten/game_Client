@@ -15,9 +15,9 @@ export function signinUser({username, password}){
       dispatch({type: AUTH_USER});
       config.headers.authorization = response.data.token;
       localStorage.setItem('token', config.headers.authorization);
-      browserHistory.push('/game');
+      browserHistory.push('/homepage');
     })
-    .catch(response => dispatch(authError("No Bueno Login Info")));
+    .catch(response => dispatch(authError("Poor login information.")));
   }
 }
 
@@ -35,7 +35,7 @@ export function signupUser({username, password}){
       dispatch({type: AUTH_USER});
       config.headers.authorization = response.data.token;
       localStorage.setItem('token', config.headers.authorization);
-      browserHistory.push('/game');
+      browserHistory.push('/homepage');
     })
     .catch(response => dispatch(authError(response.data.error)));
   }
