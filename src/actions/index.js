@@ -43,6 +43,19 @@ export function signupUser({username, password}){
   }
 }
 
+export function createUser(props) {
+  return function(dispatch) {
+  axios.post(`${ROOT_URL}/profile`, {props}, config)
+    .then(request => {
+      dispatch({
+        type: NEW_PROFILE,
+        payload: request
+      });
+      browserHistory.push('/profile');
+    });
+  }
+}
+
 export function signoutUser(){
   localStorage.removeItem('token');
   

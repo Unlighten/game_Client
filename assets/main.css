@@ -1,17 +1,78 @@
 html, body {
-    background-image: url('https://i.pinimg.com/originals/97/dd/18/97dd188967e04be36f5cb0ec5839dd25.jpg');
+    background-image: url('https://images2.alphacoders.com/199/199922.jpg');
     color: white !important;
+    background-repeat: no-repeat;
+    background-size: cover;
 }
 
 .RU-Title {
     text-align: center;
-    margin-bottom: 80px;
+    margin-bottom: 60px;
+    border-bottom: 2px solid white;
 }
 
 .RU-Box {
-    border: 1px solid white !important;
-    background-color: grey !important;
+    border: 1px solid black !important;
+    background-color:#333 !important;
     padding: 5px;
     margin-bottom: 50px;
     margin-left: 15px;
+}
+
+.RU-Box-Title {
+    border-bottom: 1px solid white;
+    text-align: center;
+}
+
+.table {
+    font-size: 18px;
+}
+
+.ThreeWords {
+    margin-bottom: 20px !important;
+    text-align: center;
+}
+
+.Goodbye {
+    height: 100%;
+    width: 100%;
+    border: 1px solid black;
+    margin-bottom: 10px;
+}
+
+.UName {
+    text-align: center;
+    margin-top: 50px;
+}
+
+.profImage {
+    height: 250px;
+    width: 200px;
+    vertical-align: middle;
+    display: table-cell;
+    margin: 0 auto;
+}
+
+.coinsCollected {
+    text-align: center;
+    margin-top: 10px;
+}
+
+.navbar-brand{
+    color: lightgrey !important;
+    font-weight: bold;
+}
+
+.navbar-brand:hover{
+    color: white !important;
+}
+
+.container-fluid {
+    color: white !important;
+    font-weight: bold;
+}
+
+.Leaderboards-Title {
+    text-align: center;
+    margin: 50px 0 50px 0;
 }

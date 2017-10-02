@@ -7,7 +7,9 @@ class Signout extends Component {
 		this.props.signoutUser();
 	}
 	render() {
-		return <div></div>
+		return (
+			<image className="Goodbye" src="https://memegenerator.net/img/instances/500x/80458590/hope-to-see-you-soon.jpg"></image>
+		)
 	}
 }
 

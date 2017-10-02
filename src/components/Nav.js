@@ -8,7 +8,12 @@ import { Link } from 'react-router';
 			//Another thing that may be broken... sort of.. 
 			// if(this.props.authenticated) {
 				if(window.localStorage.getItem('token')){
-				return <NavItem key={1} href="/signout">Sign Out</NavItem>
+				return [
+					<NavItem key={1} href="/signout">Sign Out</NavItem>,
+					<NavItem eventKey={2} href="/game">Play CMDR</NavItem>,
+					<NavItem eventKey={3} href="/leaderboards">Leaderboards</NavItem>,
+					<NavItem eventKey={4} href="/profile">Your Profile</NavItem>
+				]
 			} else {
 				return [
 					<NavItem key={1} href="/signin">Sign In</NavItem>,
@@ -21,14 +26,11 @@ import { Link } from 'react-router';
 				<Navbar inverse fluid>
 					<Navbar.Header>
 						<Navbar.Brand>
-							<a href="/homepage">Game</a>
+							<a href="/homepage">CMDR</a>
 						</Navbar.Brand>
 					</Navbar.Header>
 					<Nav pullRight>
 					{this.renderLinks()}
-						<NavItem eventKey={3} href="/game">Game</NavItem>
-						<NavItem eventKey={4} href="/leaderboards">Leaderboards</NavItem>
-						<NavItem eventKey={5} href="/profile">Your Profile</NavItem>
 					</Nav>
 
 				</Navbar>
