@@ -34,25 +34,15 @@ export function signupUser({username, password}){
   return function(dispatch){
     axios.post(`${ROOT_URL}/signup`, {username, password})
     .then(response => {
-      dispatch({type: AUTH_USER});
+      dispatch({
+        type: AUTH_USER,
+        payload: response.data
+      });
       config.headers.authorization = response.data.token;
       localStorage.setItem('token', config.headers.authorization);
       browserHistory.push('/homepage');
     })
     .catch(response => dispatch(authError(response.data.error)));
-  }
-}
-
-export function createUser(props) {
-  return function(dispatch) {
-  axios.post(`${ROOT_URL}/profile`, {props}, config)
-    .then(request => {
-      dispatch({
-        type: NEW_PROFILE,
-        payload: request
-      });
-      browserHistory.push('/profile');
-    });
   }
 }
 

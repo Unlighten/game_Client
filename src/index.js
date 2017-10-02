@@ -6,7 +6,7 @@ import { createStore, applyMiddleware } from 'redux';
 import { Router, Route, IndexRoute, browserHistory} from 'react-router';
 
 import Leaderboards from './components/auth/leaderboards';
-import profile_createProf from './components/profile/create_profile.js';
+import Profile from './components/auth/profile';
 import Game from './components/auth/game';
 import App from './components/app';
 import reducers from './reducers';
@@ -28,7 +28,7 @@ ReactDOM.render(
           <Route path="signout" component={Signout} />
           <Route path="signup" component={Signup} />
           <Route path="game" component={RequireAuth(Game)} />
-          <Route path="profile" component={RequireAuth(profile_createProf)} />
+          <Route path="profile" component={RequireAuth(Profile)} />
           <Route path="leaderboards" component={RequireAuth(Leaderboards)} />
         </Route>
       </Router>
