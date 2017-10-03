@@ -5,6 +5,7 @@ import { Provider } from 'react-redux';
 import { createStore, applyMiddleware } from 'redux';
 import { Router, Route, IndexRoute, browserHistory} from 'react-router';
 
+import Timer from './components/auth/gametimer';
 import Leaderboards from './components/auth/leaderboards';
 import Profile from './components/auth/profile';
 import Game from './components/auth/game';
