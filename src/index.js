@@ -24,7 +24,7 @@ ReactDOM.render(
   <Provider store={createStoreWithMiddleware(reducers)}>
       <Router history={browserHistory}>
         <Route path="/" component={App}>
-          <Route path="homepage" component={Homepage, Timer} />
+          <Route path="homepage" component={Homepage} />
           <Route path="signin" component={Signin} />
           <Route path="signout" component={Signout} />
           <Route path="signup" component={Signup} />
