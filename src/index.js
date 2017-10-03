@@ -5,10 +5,10 @@ import { Provider } from 'react-redux';
 import { createStore, applyMiddleware } from 'redux';
 import { Router, Route, IndexRoute, browserHistory} from 'react-router';
 
-import Timer from './components/auth/gametimer';
 import Leaderboards from './components/auth/leaderboards';
 import Profile from './components/auth/profile';
 import Game from './components/auth/game';
+import Timer from './components/auth/gametimer';
 import App from './components/app';
 import reducers from './reducers';
 import Signin from './components/auth/signin';
@@ -24,7 +24,7 @@ ReactDOM.render(
   <Provider store={createStoreWithMiddleware(reducers)}>
       <Router history={browserHistory}>
         <Route path="/" component={App}>
-          <Route path="homepage" component={Homepage} />
+          <Route path="homepage" component={Homepage, Timer} />
           <Route path="signin" component={Signin} />
           <Route path="signout" component={Signout} />
           <Route path="signup" component={Signup} />

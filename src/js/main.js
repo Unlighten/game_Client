@@ -4,6 +4,7 @@
 //
 // Hero
 //
+   
 function Hero(game, x, y) {
     // call Phaser.Sprite constructor
     Phaser.Sprite.call(this, game, x, y, 'hero');
@@ -235,6 +236,7 @@ LoadingState.preload = function () {    // Preload assets
     this.game.load.audio('sfx:stomp', './src/audio/stomp.wav');
     this.game.load.audio('sfx:door', './src/audio/door.wav');
     this.game.load.audio('bgm', ['./src/audio/bgm.mp3', './src/audio/bgm.ogg']);
+    
 };
 LoadingState.create = function () {
     this.game.state.start('play', true, false, {level: 0});
@@ -244,6 +246,7 @@ LoadingState.create = function () {
 // Play state
 // =============================================================================
 PlayState = {};
+
 
 const LEVEL_COUNT = 11;
 
@@ -560,6 +563,7 @@ PlayState._createHud = function () {
     this.hud.add(this.keyIcon);
     this.hud.position.set(10, 10);
 };
+
 
 // =============================================================================
 // entry point
