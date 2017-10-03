@@ -1,34 +1,43 @@
-//Source: https://facebook.github.io/react/
 import React from 'react';
+import {browserHistory} from 'react-router';
 
-export default class Timer extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {secondsElapsed: 0};
+var Clock = React.createClass({
+
+  getInitialState: function() {
+    return { currentCount: 300 };
+  },
+
+  componentDidMount: function() {
+    var intervalId = setInterval(this.timer, 1000);
+    // store intervalId in the state so it can be accessed later:
+    this.setState({intervalId: intervalId});
+ },
+ 
+ componentWillUnmount: function() {
+    // use intervalId from the state to clear the interval
+    clearInterval(this.state.intervalId);
+ },
+ 
+ timer: function() {
+  var newCount = this.state.currentCount - 1;
+  if(newCount >= 0) { 
+      this.setState({ currentCount: newCount });
+  } else {
+      clearInterval(this.state.intervalId);
+      window.localStorage.setItem('gameOver', false)
+      browserHistory.push('/gameover');
   }
+},
+ 
+ render: function() {
+     // You do not need to decrease the value here
+     return (
+      <div className="container">
+        <div className="gametimer">Time Remaining: {this.state.currentCount}</div>
+      </div>
+     );
+ }
 
-  tick() {
-    this.setState((prevState) => ({
-      secondsElapsed: prevState.secondsElapsed + 1
-    }));
-  }
+});
 
-  componentDidMount() {
-    this.interval = setInterval(() => this.tick(), 1000);
-    console.log(this.interval);
-  }
-
-  componentWillUnmount() {
-    clearInterval(this.interval);
-        console.log(this.interval);
-
-  }
-
-  render() {
-    return (
-         
-          <div>Seconds Elapsed: {this.state.secondsElapsed}</div>
-      
-    );
-  }
-}
+module.exports = Clock;

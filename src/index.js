@@ -8,7 +8,7 @@ import { Router, Route, IndexRoute, browserHistory} from 'react-router';
 import Leaderboards from './components/auth/leaderboards';
 import Profile from './components/auth/profile';
 import Game from './components/auth/game';
-import Timer from './components/auth/gametimer';
+import GameOver from './components/timer/gameover';
 import App from './components/app';
 import reducers from './reducers';
 import Signin from './components/auth/signin';
@@ -29,6 +29,7 @@ ReactDOM.render(
           <Route path="signout" component={Signout} />
           <Route path="signup" component={Signup} />
           <Route path="game" component={RequireAuth(Game)} />
+          <Route path="gameover" component={RequireAuth(GameOver)} />
           <Route path="profile" component={RequireAuth(Profile)} />
           <Route path="leaderboards" component={RequireAuth(Leaderboards)} />
         </Route>

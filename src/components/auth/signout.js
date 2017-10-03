@@ -5,6 +5,10 @@ import * as actions from '../../actions';
 class Signout extends Component {
 	componentWillMount() {
 		this.props.signoutUser();
+		if(!window.location.hash) {
+            window.location = window.location + '#bye';
+            window.location.reload();
+		}
 	}
 	render() {
 		return (
