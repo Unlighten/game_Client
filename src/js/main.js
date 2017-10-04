@@ -83,7 +83,6 @@ Hero.prototype.die = function () {
     this.alive = false;
     this.body.enable = false;
 
-
     this.animations.play('die').onComplete.addOnce(function () {
         this.kill();
     }, this);
@@ -127,14 +126,14 @@ function Spider(game, x, y) {
     this.anchor.set(0.5);
     // animation
     this.animations.add('crawl', [0, 1, 2], 8, true);
-    this.animations.add('die', [0,4,1,3,2,4,3,4,3,4,3,4,3,4,3,4,3,4,3,4,3,4,3,4,3,4,3,4,3,4,3,3,3,3,3,3,3,3,3,3], 12);
+    this.animations.add('die', [0,4,1,3,2,4,3,4,3,4,3,4,3,4,3,4,3,4,3,4,3,4,3,4,3,3,3,3,0,3,3,3,3,0,3,3,3,3], 12);
     this.animations.play('crawl');
     // physic properties
     this.game.physics.enable(this);
     this.body.collideWorldBounds = true;
     this.body.velocity.x = Spider.SPEED;
 };
-Spider.SPEED = 150;
+Spider.SPEED = 200;
 // inherit from Phaser.Sprite
 Spider.prototype = Object.create(Phaser.Sprite.prototype);
 Spider.prototype.constructor = Spider;
@@ -228,7 +227,7 @@ LoadingState.preload = function () {    // Preload assets
     this.game.load.image('grass:1x1', './src/images/grass_1x1.png');
     this.game.load.image('key', './src/images/key.png');
 
-    this.game.load.image('projectile', './src/images/projectile.png', 4, 4);
+    this.game.load.image('projectile', './src/images/projectile.png', 16, 3);
 
     this.game.load.spritesheet('decoration', './src/images/decor.png', 42, 42);
     this.game.load.spritesheet('hero', './src/images/hero.png', 36, 42);          //determines size of frames width, height
@@ -266,9 +265,6 @@ PlayState.init = function (data) {
     this.coinPickupCount = 0;
     this.hasKey = false;
     this.level = (data.level || 0) % LEVEL_COUNT;
-
-    //this gives us the accurate level that the player is on, starting at 0
-    console.log('the level is ' + this.level);
 };
 
 PlayState.create = function () {
@@ -347,13 +343,26 @@ PlayState._handleInput = function () {
         this.hero.move(1);
     }
     else if (this.keys.downArrow.isDown) {
+        this.sfx.stomp.play();
         this.projectile.body.enable = true;
         this.projectile.body.visible = true;
-        this.sfx.stomp.play();
-        this.projectile.x = this.hero.x+15;
-        this.projectile.y = this.hero.y-2;
-        this.projectile.move(1);
-        console.log("Firing gun...");
+        
+        console.log(this);
+
+        if (this.hero.scale.x===1) {
+            console.log("bullet should move to right of screen");
+            this.projectile.x = this.hero.x+12;
+            this.projectile.y = this.hero.y-1;
+            this.projectile.visible = true;
+            this.projectile.move(1);
+        }
+        else if (this.hero.scale.x===-1) {
+            console.log("bullet should move to left of screen");
+            this.projectile.x = this.hero.x-12;
+            this.projectile.y = this.hero.y-1;
+            this.projectile.visible = true;
+            this.projectile.move(-1);
+        }
         fireGun();
     }
     else { // stop
@@ -371,12 +380,18 @@ PlayState._handleInput = function () {
     }
 };
 
+function fireGun() {
+    if (this.isFrozen) { return; }
+    //console.log(this);
+};
+
 PlayState._onEnemyVsProjectile = function (projectile, enemy) {
     this.sfx.stomp.play();
     enemy.die();
     this.projectile.body.enable = false;
-    this.projectile.body.visible = false;
+    //this.projectile.body.visible = false;
     enemy.body.touching = enemy.body.wasTouching;
+    this.projectile.visible = false;
 };
 
 PlayState._onEnemyVsEnemy = function (enemy, enemy) {
@@ -435,7 +450,6 @@ PlayState._onHeroVsEnemy = function (hero, enemy) {
     }
 };
 
-
 PlayState._onHeroVsDoor = function (hero, door) {
     // 'open' the door by changing its graphic and playing a sfx
     door.frame = 1;
@@ -453,7 +467,7 @@ PlayState._goToNextLevel = function () {
     this.camera.onFadeComplete.addOnce(function () {
         // change to next level
         this.game.state.restart(true, false, {
-            level: this.level + 1,
+            level: this.level + 1
         });
     }, this);
 };
@@ -472,7 +486,7 @@ PlayState._loadLevel = function (data) {
     // spawn hero and enemies
     this._spawnCharacters({hero: data.hero, spiders: data.spiders, projectile: data.projectile});
 
-    console.log(this.hero.position);
+    //console.log(this.hero.position);
 
     // spawn level decoration
     data.decoration.forEach(function (deco) {
@@ -504,8 +518,8 @@ PlayState._spawnCharacters = function (data) {
     this.hero = new Hero(this.game, data.hero.x, data.hero.y);
     this.game.add.existing(this.hero);
 
-    console.log(this.hero.position.x);
-    console.log(this.hero.position.y);
+    //console.log(this.hero.position.x);
+    //console.log(this.hero.position.y);
     let heroX = this.hero.position.x;
     let heroY = this.hero.position.y;
 
@@ -534,14 +548,6 @@ PlayState._spawnPlatform = function (platform) {
     // spawn invisible walls at each side, only detectable by enemies
     this._spawnEnemyWall(platform.x, platform.y, 'left');
     this._spawnEnemyWall(platform.x + sprite.width, platform.y, 'right');
-};
-
-function fireGun() {
-    if (this.isFrozen) { return; }
-
-    const BULLET_SPEED = 500;
-
-    console.log("downArrow pressed, fireGun() called. Gun fired?");
 };
 
 PlayState._spawnEnemyWall = function (x, y, side) {
@@ -613,6 +619,7 @@ PlayState._createHud = function () {
 // =============================================================================
 // entry point
 // =============================================================================
+
 if(location.pathname=="/game"){
     window.onload = function () {
         let game = new Phaser.Game(960, 600, Phaser.AUTO, 'game');

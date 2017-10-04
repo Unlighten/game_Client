@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
+// import { ListGroupItem, ListGroup, Button  } from 'react-bootstrap';
 import axios from 'axios';
-
-
-
 
 
 export default class Leaderboards extends Component {
@@ -10,7 +8,7 @@ export default class Leaderboards extends Component {
         super(props)
 
         this.state = {
-            leaderboardData: []
+            leaderboardData: {}
         }
         this.getLeaderBoard = this.getLeaderBoard.bind(this)
     }
@@ -19,13 +17,9 @@ export default class Leaderboards extends Component {
     getLeaderBoard(){
         axios.get('http://localhost:7272/leaderboard')
          .then((response) => {
-             response.data.data.forEach((item) => {
-                 let newItem = {
-                     username: item.username,
-                     level: item.level
-                 }
-
-                 this.state.leaderboardData.push(newItem)
+            //  console.log(response.data.data)
+             this.setState({
+                 leaderboardData: response.data.data
              })
          })
     }
@@ -34,20 +28,22 @@ export default class Leaderboards extends Component {
         this.getLeaderBoard()
     }
 
-    renderTable(data) {
-        console.log(data)
-        console.log(data[1])
-        return (
-            <tr><td>{data}</td></tr>
-        )
-    }
-    renderRow(item) {
-        return (
-            <tr>
-                <td>asdfasdf</td>
-                <td>{item.level}</td>
-            </tr>
-        )
+    renderItems() {
+        console.log(this.state)
+        let rank = 0
+        if (Object.keys(this.state.leaderboardData).length !== 0) {
+            return this.state.leaderboardData.map((item) => {
+                rank++
+                return (
+                    <tr>
+                        <td>{rank}</td>
+                        <td>{item.username}</td>
+                        <td>{item.level}</td>
+                    </tr>
+                );
+            });
+        }
+        else {return ""}
     }
     render() {
       return (
@@ -62,7 +58,7 @@ export default class Leaderboards extends Component {
               </tr>
             </thead>
             <tbody>
-            {this.renderTable(this.state.leaderboardData)}
+                {this.renderItems()}
             </tbody>
             </table>
           </div>
