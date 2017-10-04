@@ -15,7 +15,8 @@ export default class Leaderboards extends Component {
 
     // get leaderboard data using axios
     getLeaderBoard(){
-        axios.get('https://cmdr-server.herokuapp.com/leaderboard')
+        // axios.get('https://cmdr-server.herokuapp.com/leaderboard')
+        axios.get('https://localhost:8080/')
          .then((response) => {
             //  console.log(response.data.data)
              this.setState({

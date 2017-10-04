@@ -3,7 +3,8 @@ import {browserHistory} from 'react-router';
 import {AUTH_USER, UNAUTH_USER, AUTH_ERROR} from './types';
 import authReducer from '../reducers/auth_reducer';
 
-const ROOT_URL = "https://cmdr-server.herokuapp.com/api"
+// const ROOT_URL = "https://cmdr-server.herokuapp.com/api"
+const ROOT_URL = "https://localhost:8080/"
 const config = {
   headers: {authorization: localStorage.getItem('token') }
   // headers: {authorization: null }
