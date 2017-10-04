@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-import Timer from '../timer/Timer';
+import Clock from '../timer/Timer';
 
 export default class Game extends Component {
     render() {
