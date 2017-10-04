@@ -1,45 +1,68 @@
 import React, { Component } from 'react';
+import axios from 'axios';
+
+
+
 
 
 export default class Leaderboards extends Component {
+    constructor(props){
+        super(props)
+
+        this.state = {
+            leaderboardData: []
+        }
+        this.getLeaderBoard = this.getLeaderBoard.bind(this)
+    }
+
+    // get leaderboard data using axios
+    getLeaderBoard(){
+        axios.get('http://localhost:7272/leaderboard')
+         .then((response) => {
+             response.data.data.forEach((item) => {
+                 let newItem = {
+                     username: item.username,
+                     level: item.level
+                 }
+
+                 this.state.leaderboardData.push(newItem)
+             })
+         })
+    }
+
+    componentWillMount() {
+        this.getLeaderBoard()
+    }
+
+    renderTable(data) {
+        console.log(data)
+        console.log(data[1])
+        return (
+            <tr><td>{data}</td></tr>
+        )
+    }
+    renderRow(item) {
+        return (
+            <tr>
+                <td>asdfasdf</td>
+                <td>{item.level}</td>
+            </tr>
+        )
+    }
     render() {
       return (
         <div>
             <h1 className="Leaderboards-Title">Leaderboards</h1>
-          <table className='table' >
+          <table className='table'>
             <thead>
               <tr>
                 <th>Rank</th>
                 <th>User</th>
-                <th>Time</th>
+                <th>Level</th>
               </tr>
             </thead>
             <tbody>
-                <tr>
-                    <td>1</td>
-                    <td>Aaron</td>
-                    <td>1:10:01</td>
-                </tr>
-                <tr>
-                    <td>2</td>
-                    <td>Vernon</td>
-                    <td>2:01:89</td>
-                </tr>
-                <tr>
-                    <td>3</td>
-                    <td>Isaac</td>
-                    <td>2:32:76</td>
-                </tr>
-                <tr>
-                    <td>4</td>
-                    <td>J-Money</td>
-                    <td>3:3:76</td>
-                </tr>
-                <tr>
-                    <td>5</td>
-                    <td>Brian</td>
-                    <td>5:32:93</td>
-                </tr>
+            {this.renderTable(this.state.leaderboardData)}
             </tbody>
             </table>
           </div>

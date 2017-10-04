@@ -8,7 +8,7 @@ export default class Profile extends Component {
         <div className="Profile">
               <h1 className="UName">Username</h1>
               <p className="ThreeWords">Adjective 1 - Adjective 2 - Adjective 3</p>
-              <image className="profImage" src="http://images5.fanpop.com/image/photos/31200000/Adventure-Time-adventure-time-with-finn-and-jake-31251863-500-324.jpg"></image>
+              <image className="profImage" src="http://s3.amazonaws.com/37assets/svn/765-default-avatar.png"></image>
               <div className="coinsCollected">Coins collected</div>
         </div>
       );

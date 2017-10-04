@@ -3,6 +3,7 @@ import NavBarHeader from './Nav';
 import NavBarFooter from './Footer';
 import Signin from './auth/signin';
 
+
 export default class App extends Component {
   render() {
     return (

@@ -4,7 +4,6 @@
 //
 // Hero
 //
-
 function Hero(game, x, y) {
     // call Phaser.Sprite constructor
     Phaser.Sprite.call(this, game, x, y, 'hero');
@@ -83,6 +82,7 @@ Hero.prototype.freeze = function () {
 Hero.prototype.die = function () {
     this.alive = false;
     this.body.enable = false;
+
 
     this.animations.play('die').onComplete.addOnce(function () {
         this.kill();
@@ -266,6 +266,9 @@ PlayState.init = function (data) {
     this.coinPickupCount = 0;
     this.hasKey = false;
     this.level = (data.level || 0) % LEVEL_COUNT;
+
+    //this gives us the accurate level that the player is on, starting at 0
+    console.log('the level is ' + this.level);
 };
 
 PlayState.create = function () {
@@ -405,8 +408,25 @@ PlayState._onHeroVsEnemy = function (hero, enemy) {
         hero.die();
         this.sfx.stomp.play();
         hero.events.onKilled.addOnce(function () {
-            this.game.state.restart(true, false, {level: this.level});
-        }, this);
+
+            this.game.destroy();
+            level = this.level
+
+            let leaderData = {
+                username: 'Anon',
+                level: level
+            }
+            console.log(JSON.stringify(leaderData))
+            $.ajax({
+                type: "POST",
+                    url: "http://localhost:7272/leaderboard",
+                    data: JSON.stringify(leaderData)
+                }).then(function(res){
+                    console.log(1, res)
+                }).catch(function(res){
+                    console.log(2, res)
+                })
+            }, this);
 
         // NOTE: bug in phaser in which it modifies 'touching' when
         // checking for overlaps. This undoes that change so spiders don't
@@ -414,6 +434,7 @@ PlayState._onHeroVsEnemy = function (hero, enemy) {
         enemy.body.touching = enemy.body.wasTouching;
     }
 };
+
 
 PlayState._onHeroVsDoor = function (hero, door) {
     // 'open' the door by changing its graphic and playing a sfx
@@ -432,7 +453,7 @@ PlayState._goToNextLevel = function () {
     this.camera.onFadeComplete.addOnce(function () {
         // change to next level
         this.game.state.restart(true, false, {
-            level: this.level + 1
+            level: this.level + 1,
         });
     }, this);
 };
