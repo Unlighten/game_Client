@@ -6,7 +6,7 @@ export default class Game extends Component {
     render() {
       return (
       	<div>
-      	<Timer />
+      	<Clock />
         <div id="game"></div>
       	</div>
       );
