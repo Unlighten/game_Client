@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 // import { ListGroupItem, ListGroup, Button  } from 'react-bootstrap';
 import axios from 'axios';
+import ROOT_URL from '../../actions/index';
 
 
 export default class Leaderboards extends Component {
@@ -15,7 +16,7 @@ export default class Leaderboards extends Component {
 
     // get leaderboard data using axios
     getLeaderBoard(){
-        axios.get('https://cmdr-server.herokuapp.com/leaderboard')
+        axios.get(`${ROOT_URL}/leaderboard`, {username, level})
         // axios.get('https://localhost:8080/')
          .then((response) => {
             //  console.log(response.data.data)
