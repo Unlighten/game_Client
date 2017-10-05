@@ -434,7 +434,7 @@ PlayState._onHeroVsEnemy = function (hero, enemy) {
             console.log(JSON.stringify(leaderData))
             $.ajax({
                 type: "POST",
-                    url: "http://localhost:7272/leaderboard",
+                    url: "https://cmdr-server.herokuapp.com/leaderboard",
                     data: JSON.stringify(leaderData)
                 }).then(function(res){
                     console.log(1, res)
