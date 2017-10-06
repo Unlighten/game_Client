@@ -1,0 +1,12 @@
+What to work on next:
+
+1.) When the game crashes (when someone dies), make it redirect you to leaderboards 
+    - get rid of gameover
+    - when you run out of time, redirect the player to leaderboards
+
+2.) User Profile
+    -remember it will be similar to the way the leaderboards was logged into the database
+
+3.) The game itself.
+    -fix the way bullets are shot
+    -add more maps and fix the current maps
